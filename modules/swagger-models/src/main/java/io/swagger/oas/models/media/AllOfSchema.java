@@ -33,20 +33,37 @@ public class AllOfSchema extends Schema {
    *
    * @return List&lt;Schema&gt; allOf
    **/
-
   public List<Schema> getAllOf() {
     return allOf;
   }
 
+  /**
+   * sets this AllOfSchema's allOf property to the given allOf.
+   *
+   * @param List&lt;Schema&gt; allOf
+   */
   public void setAllOf(List<Schema> allOf) {
     this.allOf = allOf;
   }
 
+  /**
+   * sets this AllOfSchema's allOf property to the given allOf and
+   * returns this instance of AllOfSchema
+   *
+   * @param List&lt;Schema&gt; allOf
+   * @return AllOfSchema
+   */
   public AllOfSchema allOf(List<Schema> allOf) {
     this.allOf = allOf;
     return this;
   }
 
+  /**
+   * Adds the given allOfItem to this AllOfSchema's map of allOfItems, with the given key as its key.
+   *
+   * @param Schema allOfItem
+   * @return AllOfSchema
+   */
   public AllOfSchema addAllOfItem(Schema allOfItem) {
     if(this.allOf == null) {
       this.allOf = new ArrayList<Schema>();

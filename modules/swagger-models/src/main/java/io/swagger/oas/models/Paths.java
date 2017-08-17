@@ -31,6 +31,13 @@ public class Paths extends LinkedHashMap<String, PathItem> {
   public Paths() { }
   private java.util.Map<String, Object> extensions = null;
 
+  /**
+   * Adds the given path item to this Paths and return this instance of Paths
+   * 
+   * @param String name
+   * @param PathItem item
+   * @return Paths
+   */
   public Paths addPathItem(String name, PathItem item) {
     this.put(name, item);
     return this;
@@ -54,11 +61,22 @@ public class Paths extends LinkedHashMap<String, PathItem> {
     return Objects.hash(extensions, super.hashCode());
   }
 
-
+  /**
+   * returns the extensions property from a Paths instance.
+   *
+   * @return Map&lt;String, Object&gt; extensions
+   **/
   public java.util.Map<String, Object> getExtensions() {
     return extensions;
   }
 
+  /**
+   * Adds the given Object to this Paths' map of extensions, with the given key as its key.
+   *
+   * @param String key
+   * @param Object value
+   * @return Paths
+   */
   public void addExtension(String name, Object value) {
     if(this.extensions == null) {
       this.extensions = new java.util.HashMap<>();
@@ -66,6 +84,11 @@ public class Paths extends LinkedHashMap<String, PathItem> {
     this.extensions.put(name, value);
   }
 
+  /**
+   * sets this Paths' extensions property to the given map of extensions.
+   *
+   * @param Map&lt;String, Object&gt;extensions
+   */
   public void setExtensions(java.util.Map<String, Object> extensions) {
     this.extensions = extensions;
   }

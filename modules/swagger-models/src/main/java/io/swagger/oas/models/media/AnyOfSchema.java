@@ -41,15 +41,33 @@ public class AnyOfSchema extends Schema {
     return anyOf;
   }
 
+  /**
+   * sets this AnyOfSchema's anyOf property to the given anyOf.
+   *
+   * @param List&lt;Schema&gt; anyOf
+   */
   public void setAnyOf(List<Schema> anyOf) {
     this.anyOf = anyOf;
   }
 
+  /**
+   * sets this AnyOfSchema's anyOf property to the given anyOf and
+   * returns this instance of AnyOfSchema
+   *
+   * @param List&lt;Schema&gt; anyOf
+   * @return AnyOfSchema
+   */
   public AnyOfSchema anyOf(List<Schema> anyOf) {
     this.anyOf = anyOf;
     return this;
   }
 
+  /**
+   * Adds the given anyOfItem to this AnyOfSchema's map of anyOfItem, with the given key as its key.
+   *
+   * @param Schema anyOfItem
+   * @return AnyOfSchema
+   */
   public AnyOfSchema addAnyOfItem(Schema anyOfItem) {
     if(this.anyOf == null) {
       this.anyOf = new ArrayList<Schema>();
