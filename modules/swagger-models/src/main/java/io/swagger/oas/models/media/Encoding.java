@@ -28,6 +28,7 @@ import java.util.Map;
 
 
 public class Encoding {
+    private String name;
     private String contentType;
     private Map<String, Header> headers;
     private String style;
@@ -54,6 +55,36 @@ public class Encoding {
     }
 
     public Encoding() {
+    }
+
+    /**
+     * returns the name property from a Encoding instance.
+     *
+     * @return String name
+     **/
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * sets this Encoding's name property to the given name.
+     *
+     * @param String name
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * sets this Encoding's name property to the given name and
+     * returns this instance of Encoding
+     *
+     * @param String name
+     * @return Encoding
+     */
+    public Encoding name(String name) {
+        this.name = name;
+        return this;
     }
 
     /**
