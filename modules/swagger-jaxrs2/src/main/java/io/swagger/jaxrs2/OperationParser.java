@@ -385,9 +385,10 @@ public class OperationParser {
                 apiResponseObject.setDescription(response.description());
             }
             getContent(response.content(), classProduces == null ? new String[0] : classProduces.value(),
-            methodProduces == null ? new String[0] : methodProduces.value(), components).ifPresent(apiResponseObject::content);
+                    methodProduces == null ? new String[0] : methodProduces.value(), components).ifPresent(apiResponseObject::content);
             getHeaders(response.headers(), components).ifPresent(apiResponseObject::headers);
             if (StringUtils.isNotBlank(apiResponseObject.getDescription()) || apiResponseObject.getContent() != null || apiResponseObject.getHeaders() != null) {
+
                 Map<String, Link> links = getLinks(response.links());
                 if (links.size() > 0) {
                     apiResponseObject.setLinks(links);
