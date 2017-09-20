@@ -1271,44 +1271,45 @@ public class Schema<T> {
         }
         Schema schema = (Schema) o;
         return Objects.equals(this.title, schema.title) &&
-               Objects.equals(this.multipleOf, schema.multipleOf) &&
-               Objects.equals(this.maximum, schema.maximum) &&
-               Objects.equals(this.exclusiveMaximum, schema.exclusiveMaximum) &&
-               Objects.equals(this.minimum, schema.minimum) &&
-               Objects.equals(this.exclusiveMinimum, schema.exclusiveMinimum) &&
-               Objects.equals(this.maxLength, schema.maxLength) &&
-               Objects.equals(this.minLength, schema.minLength) &&
-               Objects.equals(this.pattern, schema.pattern) &&
-               Objects.equals(this.maxItems, schema.maxItems) &&
-               Objects.equals(this.minItems, schema.minItems) &&
-               Objects.equals(this.uniqueItems, schema.uniqueItems) &&
-               Objects.equals(this.maxProperties, schema.maxProperties) &&
-               Objects.equals(this.minProperties, schema.minProperties) &&
-               Objects.equals(this.required, schema.required) &&
-               Objects.equals(this.type, schema.type) &&
-               Objects.equals(this.not, schema.not) &&
-               Objects.equals(this.properties, schema.properties) &&
-               Objects.equals(this.additionalProperties, schema.additionalProperties) &&
-               Objects.equals(this.description, schema.description) &&
-               Objects.equals(this.format, schema.format) &&
-               Objects.equals(this.$ref, schema.$ref) &&
-               Objects.equals(this.nullable, schema.nullable) &&
-               Objects.equals(this.readOnly, schema.readOnly) &&
-               Objects.equals(this.writeOnly, schema.writeOnly) &&
-               Objects.equals(this.example, schema.example) &&
-               Objects.equals(this.externalDocs, schema.externalDocs) &&
-               Objects.equals(this.deprecated, schema.deprecated) &&
-               Objects.equals(this.xml, schema.xml) &&
-               Objects.equals(this.extensions, schema.extensions) &&
-               Objects.equals(this._enum, schema._enum) &&
-               Objects.equals(this._default, schema._default);
+                Objects.equals(this.multipleOf, schema.multipleOf) &&
+                Objects.equals(this.maximum, schema.maximum) &&
+                Objects.equals(this.exclusiveMaximum, schema.exclusiveMaximum) &&
+                Objects.equals(this.minimum, schema.minimum) &&
+                Objects.equals(this.exclusiveMinimum, schema.exclusiveMinimum) &&
+                Objects.equals(this.maxLength, schema.maxLength) &&
+                Objects.equals(this.minLength, schema.minLength) &&
+                Objects.equals(this.pattern, schema.pattern) &&
+                Objects.equals(this.maxItems, schema.maxItems) &&
+                Objects.equals(this.minItems, schema.minItems) &&
+                Objects.equals(this.uniqueItems, schema.uniqueItems) &&
+                Objects.equals(this.maxProperties, schema.maxProperties) &&
+                Objects.equals(this.minProperties, schema.minProperties) &&
+                Objects.equals(this.required, schema.required) &&
+                Objects.equals(this.type, schema.type) &&
+                Objects.equals(this.not, schema.not) &&
+                Objects.equals(this.properties, schema.properties) &&
+                Objects.equals(this.additionalProperties, schema.additionalProperties) &&
+                Objects.equals(this.description, schema.description) &&
+                Objects.equals(this.format, schema.format) &&
+                Objects.equals(this.$ref, schema.$ref) &&
+                Objects.equals(this.nullable, schema.nullable) &&
+                Objects.equals(this.readOnly, schema.readOnly) &&
+                Objects.equals(this.writeOnly, schema.writeOnly) &&
+                Objects.equals(this.example, schema.example) &&
+                Objects.equals(this.externalDocs, schema.externalDocs) &&
+                Objects.equals(this.deprecated, schema.deprecated) &&
+                Objects.equals(this.xml, schema.xml) &&
+                Objects.equals(this.extensions, schema.extensions) &&
+                Objects.equals(this.discriminator, schema.discriminator) &&
+                Objects.equals(this._enum, schema._enum) &&
+                Objects.equals(this._default, schema._default);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(title, multipleOf, maximum, exclusiveMaximum, minimum, exclusiveMinimum, maxLength, minLength, pattern, maxItems,
-                            minItems, uniqueItems, maxProperties, minProperties, required, type, not, properties, additionalProperties, description, format, $ref,
-                            nullable, readOnly, writeOnly, example, externalDocs, deprecated, xml, extensions, _enum, _default);
+                minItems, uniqueItems, maxProperties, minProperties, required, type, not, properties, additionalProperties, description, format, $ref,
+                nullable, readOnly, writeOnly, example, externalDocs, deprecated, xml, extensions, discriminator, _enum, _default);
     }
 
     /**
@@ -1379,6 +1380,7 @@ public class Schema<T> {
         sb.append("    example: ").append(toIndentedString(example)).append("\n");
         sb.append("    externalDocs: ").append(toIndentedString(externalDocs)).append("\n");
         sb.append("    deprecated: ").append(toIndentedString(deprecated)).append("\n");
+        sb.append("    discriminator: ").append(toIndentedString(discriminator)).append("\n");
         sb.append("    xml: ").append(toIndentedString(xml)).append("\n");
         sb.append("}");
         return sb.toString();

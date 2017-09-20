@@ -19,6 +19,7 @@ package io.swagger.oas.models.media;
 import io.swagger.oas.models.headers.Header;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Encoding
@@ -31,7 +32,7 @@ public class Encoding {
     private String name;
     private String contentType;
     private Map<String, Header> headers;
-    private String style;
+    private StyleEnum style;
     private Boolean explode;
     private Boolean allowReserved;
     private java.util.Map<String, Object> extensions = null;
@@ -154,7 +155,7 @@ public class Encoding {
      * @param String style
      * @return Encoding
      */
-    public Encoding style(String style) {
+    public Encoding style(StyleEnum style) {
         this.style = style;
         return this;
     }
@@ -164,7 +165,7 @@ public class Encoding {
      *
      * @return String style
      **/
-    public String getStyle() {
+    public StyleEnum getStyle() {
         return style;
     }
     
@@ -173,7 +174,7 @@ public class Encoding {
      *
      * @param String style
      */
-    public void setStyle(String style) {
+    public void setStyle(StyleEnum style) {
         this.style = style;
     }
 
@@ -269,6 +270,28 @@ public class Encoding {
     }
 
     @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Encoding encoding = (Encoding) o;
+        return Objects.equals(this.contentType, encoding.contentType) &&
+            Objects.equals(this.headers, encoding.headers) &&
+            Objects.equals(this.style, encoding.style) &&
+            Objects.equals(this.explode, encoding.explode) &&
+            Objects.equals(this.extensions, encoding.extensions) &&
+            Objects.equals(this.allowReserved, encoding.allowReserved);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(contentType, headers, style, explode, allowReserved, extensions);
+    }
+
+    @Override
     public String toString() {
         return "Encoding{" +
                 "contentType='" + contentType + '\'' +
@@ -276,7 +299,7 @@ public class Encoding {
                 ", style='" + style + '\'' +
                 ", explode=" + explode +
                 ", allowReserved=" + allowReserved +
+                ", extensions=" + extensions +
                 '}';
     }
 }
-

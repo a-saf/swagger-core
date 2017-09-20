@@ -5,6 +5,7 @@ import io.swagger.jaxrs2.resources.PetResource;
 import io.swagger.jaxrs2.resources.SimpleUserResource;
 import io.swagger.jaxrs2.resources.UserResource;
 import io.swagger.oas.annotations.Operation;
+import io.swagger.oas.annotations.headers.Header;
 import io.swagger.oas.annotations.media.Content;
 import io.swagger.oas.annotations.media.ExampleObject;
 import io.swagger.oas.annotations.media.Schema;
@@ -13,7 +14,6 @@ import org.testng.annotations.Test;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-
 import java.io.IOException;
 
 import static org.testng.Assert.assertEquals;
@@ -111,6 +111,12 @@ public class AnnotatedOperationMethodTest extends AbstractAnnotationTest {
                 "            '*/*':\n" +
                 "              schema:\n" +
                 "                $ref: '#/components/schemas/GenericError'\n" +
+                "              examples:\n" +
+                "                boo:\n" +
+                "                  summary: example of boo\n" +
+                "                  description: boo\n" +
+                "                  value: example\n" +
+                "                  externalValue: example of external value\n" +
                 "      deprecated: true\n";
 
         assertEquals(extractedYAML, expectedYAML);
@@ -132,11 +138,15 @@ public class AnnotatedOperationMethodTest extends AbstractAnnotationTest {
                                 )
                         ),
                         @ApiResponse(
-                                responseCode = "default",
                                 description = "boo",
                                 content = @Content(
                                         mediaType = "*/*",
-                                        schema = @Schema(implementation = GenericError.class)
+                                        schema = @Schema(implementation = GenericError.class),
+                                        examples = {
+                                                @ExampleObject(name = "boo", value = "example",
+                                                        summary = "example of boo", externalValue = "example of external value")
+                                        }
+
                                 )
                         )
                 }
@@ -210,6 +220,99 @@ public class AnnotatedOperationMethodTest extends AbstractAnnotationTest {
         @Path("/path")
         public void simpleGet() {
         }
+    }
+
+    static class GetOperationWithResponseSingleHeader {
+        @Operation(
+                   summary = "Simple get operation",
+                   description = "Defines a simple get operation with no inputs and a complex output",
+                   operationId = "getWithPayloadResponse",
+                   deprecated = true,
+                   responses = {
+                                 @ApiResponse(
+                                              responseCode = "200",
+                                              description = "voila!",
+                                              headers = { @Header(
+                                                                  name = "Rate-Limit-Limit",
+                                                                  description = "The number of allowed requests in the current period",
+                                                                  schema = @Schema(type = "integer")) })
+                   })
+        @GET
+        @Path("/path")
+        public void simpleGet() {}
+    }
+
+    @Test
+    public void testOperationWithResponseSingleHeader() {
+        String openApiYAML = readIntoYaml(GetOperationWithResponseSingleHeader.class);
+        int start = openApiYAML.indexOf("get:");
+        String extractedYAML = openApiYAML.substring(start);
+        String expectedYAML = "get:\n" +
+                              "      summary: Simple get operation\n" +
+                              "      description: Defines a simple get operation with no inputs and a complex output\n" +
+                              "      operationId: getWithPayloadResponse\n" +
+                              "      responses:\n" +
+                              "        200:\n" +
+                              "          description: voila!\n" +
+                              "          headers:\n" +
+                              "            Rate-Limit-Limit:\n" +
+                              "              description: The number of allowed requests in the current period\n" +
+                              "              style: simple\n" +
+                              "              schema:\n" +
+                              "                type: integer\n" +
+                              "      deprecated: true\n";
+        assertEquals(expectedYAML, extractedYAML);
+    }
+
+    static class GetOperationWithResponseMultipleHeaders {
+        @Operation(
+                   summary = "Simple get operation",
+                   description = "Defines a simple get operation with no inputs and a complex output",
+                   operationId = "getWithPayloadResponse",
+                   deprecated = true,
+                   responses = {
+                                 @ApiResponse(
+                                              responseCode = "200",
+                                              description = "voila!",
+                                              headers = { @Header(
+                                                                  name = "Rate-Limit-Limit",
+                                                                  description = "The number of allowed requests in the current period",
+                                                                  schema = @Schema(type = "integer")),
+                                                          @Header(
+                                                                  name = "X-Rate-Limit-Desc",
+                                                                  description = "The description of rate limit",
+                                                                  schema = @Schema(type = "string")) })
+                   })
+        @GET
+        @Path("/path")
+        public void simpleGet() {}
+    }
+
+    @Test
+    public void testOperationWithResponseMultipleHeaders() {
+        String openApiYAML = readIntoYaml(GetOperationWithResponseMultipleHeaders.class);
+        int start = openApiYAML.indexOf("get:");
+        String extractedYAML = openApiYAML.substring(start);
+        String expectedYAML = "get:\n" +
+                              "      summary: Simple get operation\n" +
+                              "      description: Defines a simple get operation with no inputs and a complex output\n" +
+                              "      operationId: getWithPayloadResponse\n" +
+                              "      responses:\n" +
+                              "        200:\n" +
+                              "          description: voila!\n" +
+                              "          headers:\n" +
+                              "            X-Rate-Limit-Desc:\n" +
+                              "              description: The description of rate limit\n" +
+                              "              style: simple\n" +
+                              "              schema:\n" +
+                              "                type: string\n" +
+                              "            Rate-Limit-Limit:\n" +
+                              "              description: The number of allowed requests in the current period\n" +
+                              "              style: simple\n" +
+                              "              schema:\n" +
+                              "                type: integer\n" +
+                              "      deprecated: true\n";
+        assertEquals(expectedYAML, extractedYAML);
     }
 
     @Test(description = "reads the pet resource from sample")
@@ -528,6 +631,17 @@ public class AnnotatedOperationMethodTest extends AbstractAnnotationTest {
                 "        required: true\n" +
                 "        schema:\n" +
                 "          type: string\n" +
+                "        examples:\n" +
+                "          example2:\n" +
+                "            summary: Summary example 2\n" +
+                "            description: example2\n" +
+                "            value: example2\n" +
+                "            externalValue: external value 2\n" +
+                "          example1:\n" +
+                "            summary: Summary example 1\n" +
+                "            description: example1\n" +
+                "            value: example1\n" +
+                "            externalValue: external value 1\n" +
                 "      requestBody:\n" +
                 "        description: Updated user object\n" +
                 "        content:\n" +
