@@ -54,6 +54,6 @@ public @interface Content {
    * @return the array of encodings
    */
 
-  EncodingObject[] encodings() default {};
+  Encoding[] encodings() default {};
 
 }

@@ -26,7 +26,7 @@ import java.lang.annotation.Target;
 @Target({})
 @Retention(RetentionPolicy.RUNTIME)
 @Inherited
-public @interface EncodingObject {
+public @interface Encoding {
 
     /**
      * The name of this encoding object instance.
